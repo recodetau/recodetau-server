@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "Vue.volar",
+        "Vue.vscode-typescript-vue-plugin",
+        "antfu.vite",
+        "wayou.vscode-todo-highlight",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+    ]
+}
