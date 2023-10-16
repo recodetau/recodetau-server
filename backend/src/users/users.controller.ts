@@ -11,7 +11,7 @@ import { UsersService } from "./users.service";
 
 import { UpdateUserDto } from "./dto/update-user.dto";
 
-import { User } from "@/decorators/user.decorator";
+import { User } from "@/users/decorators/user.decorator";
 import { User as UserModel } from "./users.model";
 
 @Controller()

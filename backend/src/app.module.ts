@@ -1,9 +1,5 @@
-import { join as joinpath } from "path";
-
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
-import { ServeStaticModule } from "@nestjs/serve-static";
-import { ThrottlerModule } from "@nestjs/throttler";
 
 import { CreateDatabaseModule } from "./database.module";
 import { CreateRouterModule } from "./router";
@@ -20,23 +16,6 @@ import { PostsModule } from "./posts/posts.module";
     imports: [
         ConfigModule.forRoot({
             envFilePath: `.${process.env.NODE_ENV || "production"}.env`,
-        }),
-
-        ThrottlerModule.forRoot([
-            {
-                ttl: 1000,
-                limit: 100,
-            },
-        ]),
-
-        ServeStaticModule.forRoot({
-            rootPath: joinpath(__dirname, "..", "public"),
-            renderPath: "/",
-        }),
-
-        ServeStaticModule.forRoot({
-            rootPath: joinpath(__dirname, "..", "uploads"),
-            renderPath: "/uploads",
         }),
 
         CreateDatabaseModule(),

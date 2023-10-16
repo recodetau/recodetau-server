@@ -13,7 +13,7 @@ import { AuthenticatedRequest } from "@/types/requests";
 import { AuthLoginDto } from "./dto/auth-login.dto";
 import { AuthRegistrationDto } from "./dto/auth-registration.dto";
 
-import { AllowUnauthorizedRequest } from "@/decorators/allow-unauthorized-request.decorator";
+import { AllowUnauthorizedRequest } from "@/auth/decorators/allow-unauthorized-request.decorator";
 
 import { User } from "@/users/users.model";
 

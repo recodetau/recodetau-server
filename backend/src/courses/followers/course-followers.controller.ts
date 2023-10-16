@@ -11,7 +11,7 @@ import {
 
 import { CourseFollowersService } from "./course-followers.service";
 
-import { User } from "@/decorators/user.decorator";
+import { User } from "@/users/decorators/user.decorator";
 import { User as UserModel } from "@/users/users.model";
 import { CourseFollower } from "./course-followers.model";
 
