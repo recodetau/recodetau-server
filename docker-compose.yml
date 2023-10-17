@@ -3,15 +3,14 @@ version: "3"
 services:
   frontend:
     build: ./frontend
-    ports:
-      - 4000:4000
-    env_file: .env
 
   backend:
     build: ./backend
     ports:
       - 3000:3000
     env_file: .env
+    depends_on:
+      - postgres
 
   postgres:
     image: postgres:15.3
@@ -25,6 +24,10 @@ services:
     image: nginx:latest
     volumes:
       - ./nginx/conf/bytehub.conf:/etc/nginx/nginx.conf
-      - ./frontend/dict:/usr/share/nginx/html
+      - ./frontend/dist:/usr/share/nginx/html
     ports:
       - 80:80
+    depends_on:
+      - postgres
+      - backend
+      - frontend

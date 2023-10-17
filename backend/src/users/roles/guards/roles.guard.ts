@@ -4,6 +4,7 @@ import {
     HttpException,
     HttpStatus,
     Injectable,
+    UnauthorizedException,
 } from "@nestjs/common";
 
 import { Observable } from "rxjs";
