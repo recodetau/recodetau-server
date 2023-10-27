@@ -1,6 +1,15 @@
-import { Model, Table, Column, DataType } from "sequelize-typescript";
+import {
+    Model,
+    Table,
+    Column,
+    DataType,
+    ForeignKey,
+} from "sequelize-typescript";
 
-export enum Role {
+import { Role } from "./roles.model";
+import { User } from "../users.model";
+
+export enum CompanyRole {
     Owner = "owner",
     Administrator = "administrator",
     Redactor = "redactor",
@@ -25,12 +34,14 @@ export class UserRole extends Model<UserRole, UserRoleCreationAttributes> {
     })
     id: number;
 
+    @ForeignKey(() => User)
     @Column({
         type: DataType.INTEGER,
         allowNull: false,
     })
     user_id: number;
 
+    @ForeignKey(() => Role)
     @Column({
         type: DataType.INTEGER,
         allowNull: false,

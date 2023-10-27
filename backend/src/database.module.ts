@@ -5,6 +5,8 @@ import { User } from "./users/users.model";
 import { Course } from "./courses/courses.model";
 import { Tag } from "./tags/tags.model";
 import { Post } from "./posts/posts.model";
+import { Role } from "./users/roles/roles.model";
+import { UserRole } from "./users/roles/user-role.model";
 
 export const CreateDatabaseModule = (): DynamicModule => {
     return SequelizeModule.forRoot({
@@ -18,6 +20,6 @@ export const CreateDatabaseModule = (): DynamicModule => {
         database: process.env.POSTGRES_DB,
         logging: false,
 
-        models: [User, Course, Post, Tag],
+        models: [User, Course, Post, Tag, Role, UserRole],
     });
 };

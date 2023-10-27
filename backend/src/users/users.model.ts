@@ -1,5 +1,15 @@
+import {
+    Model,
+    Table,
+    Column,
+    DataType,
+    BelongsToMany,
+} from "sequelize-typescript";
+
 import { BearerToken } from "@/utilities/bearer-token";
-import { Model, Table, Column, DataType } from "sequelize-typescript";
+
+import { Role } from "./roles/roles.model";
+import { UserRole } from "./roles/user-role.model";
 
 export interface UserCreationAttributes {
     first_name: string;
@@ -16,6 +26,7 @@ export interface UserCreationAttributes {
 export class User extends Model<User, UserCreationAttributes> {
     @Column({
         type: DataType.INTEGER,
+        unique: true,
         autoIncrement: true,
         primaryKey: true,
     })
@@ -70,6 +81,9 @@ export class User extends Model<User, UserCreationAttributes> {
         type: DataType.INTEGER,
     })
     avatar_url: string;
+
+    @BelongsToMany(() => Role, () => UserRole)
+    roles: Role[];
 
     updateTokenOptions() {
         this.token = BearerToken.generate();

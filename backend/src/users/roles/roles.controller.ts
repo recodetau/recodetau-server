@@ -1,8 +1,48 @@
-import { Controller, Post, Body } from "@nestjs/common";
-import { CreateRoleDto } from "./dto/create-role.dto";
+import {
+    Controller,
+    Get,
+    Post,
+    Patch,
+    Delete,
+    Param,
+    Body,
+    ParseIntPipe,
+} from "@nestjs/common";
 
-@Controller()
-export class RoleController {
+import { RolesService } from "./roles.service";
+
+import { CreateRoleDto } from "./dto/create-role.dto";
+import { UpdateRoleDto } from "./dto/update-role.dto";
+
+@Controller("roles")
+export class RolesController {
+    constructor(private readonly rolesService: RolesService) {}
+
+    @Get("all")
+    async getAllRoles() {
+        return await this.rolesService.getAllRoles();
+    }
+
+    @Get(":id")
+    async getRoleByID(@Param("id", ParseIntPipe) roleID: number) {
+        return await this.rolesService.getRoleByID(roleID);
+    }
+
     @Post()
-    async create(@Body() createRoleDto: CreateRoleDto) {}
+    async createRole(@Body() createRoleDto: CreateRoleDto) {
+        return await this.rolesService.createRole(createRoleDto);
+    }
+
+    @Patch(":id")
+    async updateRole(
+        @Param("id", ParseIntPipe) roleID: number,
+        @Body() updateRoleDto: UpdateRoleDto,
+    ) {
+        return await this.rolesService.updateRole(roleID, updateRoleDto);
+    }
+
+    @Delete(":id")
+    async deleteRole(@Param("id", ParseIntPipe) roleID: number) {
+        return await this.rolesService.deleteRole(roleID);
+    }
 }
