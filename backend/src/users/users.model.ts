@@ -8,8 +8,8 @@ import {
 
 import { BearerToken } from "@/utilities/bearer-token";
 
-import { Role } from "./roles/roles.model";
-import { UserRole } from "./roles/user-role.model";
+import { Role } from "@/roles/roles.model";
+import { UserRole } from "@/roles/user-role.model";
 
 export interface UserCreationAttributes {
     first_name: string;

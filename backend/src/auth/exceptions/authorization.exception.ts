@@ -1,5 +1,5 @@
 import { HttpStatus } from "@nestjs/common";
-import { BaseException } from "../base.exception";
+import { BaseException } from "../../exceptions/base.exception";
 
 export class AuthorizationException extends BaseException {
     public constructor() {

@@ -8,9 +8,9 @@ import { UsersService } from "@/users/users.service";
 
 import { User } from "@/users/users.model";
 
-import { AuthorizationException } from "@/exceptions/auth/authorization.exception";
+import { AuthorizationException } from "@/auth/exceptions/authorization.exception";
 import { BearerToken } from "@/utilities/bearer-token";
-import { HasUserException } from "@/exceptions/auth/has-user.exception";
+import { HasUserException } from "@/auth/exceptions/has-user.exception";
 
 @Injectable()
 export class AuthService {

@@ -7,7 +7,7 @@ import {
 } from "sequelize-typescript";
 
 import { Role } from "./roles.model";
-import { User } from "../users.model";
+import { User } from "@/users/users.model";
 
 export enum CompanyRole {
     Owner = "owner",

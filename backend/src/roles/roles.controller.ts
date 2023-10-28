@@ -14,11 +14,11 @@ import { RolesService } from "./roles.service";
 import { CreateRoleDto } from "./dto/create-role.dto";
 import { UpdateRoleDto } from "./dto/update-role.dto";
 
-@Controller("roles")
+@Controller()
 export class RolesController {
     constructor(private readonly rolesService: RolesService) {}
 
-    @Get("all")
+    @Get()
     async getAllRoles() {
         return await this.rolesService.getAllRoles();
     }

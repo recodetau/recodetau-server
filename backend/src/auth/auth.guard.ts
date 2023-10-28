@@ -7,7 +7,7 @@ import { AuthenticatedRequest } from "@/types/requests";
 
 import { ALLOW_UNAUTHORIZED_REQUEST } from "@/auth/decorators/allow-unauthorized-request.decorator";
 
-import { UnauthorizedException } from "@/exceptions/auth/unauthorized.exception";
+import { UnauthorizedException } from "@/auth/exceptions/unauthorized.exception";
 
 import { User } from "@/users/users.model";
 

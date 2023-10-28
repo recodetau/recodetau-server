@@ -9,6 +9,7 @@ import { UsersModule } from "./users/users.module";
 import { CoursesModule } from "./courses/courses.module";
 import { TagsModule } from "./tags/tags.module";
 import { PostsModule } from "./posts/posts.module";
+import { RolesModule } from "./roles/roles.module";
 
 @Module({
     providers: [],
@@ -23,6 +24,7 @@ import { PostsModule } from "./posts/posts.module";
 
         AuthModule,
         UsersModule,
+        RolesModule,
         CoursesModule,
         TagsModule,
         PostsModule,

@@ -5,8 +5,8 @@ import { User } from "./users/users.model";
 import { Course } from "./courses/courses.model";
 import { Tag } from "./tags/tags.model";
 import { Post } from "./posts/posts.model";
-import { Role } from "./users/roles/roles.model";
-import { UserRole } from "./users/roles/user-role.model";
+import { Role } from "@/roles/roles.model";
+import { UserRole } from "@/roles/user-role.model";
 
 export const CreateDatabaseModule = (): DynamicModule => {
     return SequelizeModule.forRoot({
