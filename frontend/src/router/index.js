@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import AppLayout from "@/layout/AppLayout.vue";
+import { useAuth } from "../hooks/use-auth";
+import { DEFAULT_TITLE } from "../datas/constants/app";
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -35,6 +37,7 @@ const router = createRouter({
                 }
             ]
         },
+
         {
             path: "/auth",
             component: () => import("@/layout/AuthLayout.vue"),
@@ -51,26 +54,34 @@ const router = createRouter({
                 }
             ]
         },
+
+        {
+            path: "/access",
+            children: [
+                {
+                    path: "not-access",
+                    name: "accessDenied",
+                    component: () => import("@/views/pages/access/Access.vue")
+                },
+                {
+                    path: "error",
+                    name: "error",
+                    component: () => import("@/views/pages/access/Error.vue")
+                },
+                {
+                    path: "notfound",
+                    name: "notfound",
+                    component: () => import("@/views/pages/access/NotFound.vue")
+                }
+            ]
+        },
+
         {
             path: "/landing",
             name: "landing",
             component: () => import("@/views/pages/Landing.vue")
         },
-        {
-            path: "/pages/notfound",
-            name: "notfound",
-            component: () => import("@/views/pages/NotFound.vue")
-        },
-        {
-            path: "/auth/access",
-            name: "accessDenied",
-            component: () => import("@/views/pages/auth/Access.vue")
-        },
-        {
-            path: "/auth/error",
-            name: "error",
-            component: () => import("@/views/pages/auth/Error.vue")
-        },
+
         {
             path: "/:pathMatch(.*)*",
             redirect: { name: "notfound" }
@@ -78,17 +89,29 @@ const router = createRouter({
     ]
 });
 
-router.afterEach((to, from) => {
-    console.log(to.name);
-    const route = to;
-
-    if (route.meta.i18n) {
-        document.title = Vue.i18n.translate(route.meta.i18n);
-    } else if (route.meta.title) {
-        document.title = `${route.meta.title} | ${DEFAULT_TITLE}`;
+const changeDocumentTitleGuard = (to, from, next) => {
+    if (to.meta.title) {
+        document.title = `${to.meta.title} | ${DEFAULT_TITLE}`;
     } else {
         document.title = DEFAULT_TITLE;
     }
-});
+
+    next();
+};
+
+const loginCheckGuard = (to, from, next) => {
+    const authPages = ["login", "register"];
+    const isAuthPages = !authPages.includes(to.name);
+    const { loggedIn } = useAuth();
+
+    if (isAuthPages && !loggedIn()) {
+        next({ name: "login" });
+    }
+
+    next();
+};
+
+router.beforeEach(loginCheckGuard);
+router.beforeEach(changeDocumentTitleGuard);
 
 export default router;

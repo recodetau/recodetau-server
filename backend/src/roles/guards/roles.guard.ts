@@ -39,14 +39,11 @@ export class RolesGuard implements CanActivate {
                 });
             }
 
-            console.log(request.user.roles);
-            console.log(requiredRoles);
-
             return request.user.roles.some((role) =>
                 requiredRoles.includes(role.name),
             );
-        } catch (e) {
-            console.log(e);
+        } catch (error) {
+            console.log(error);
             throw new HttpException("Нет доступа", HttpStatus.FORBIDDEN);
         }
     }

@@ -6,8 +6,6 @@ import {
     BelongsToMany,
 } from "sequelize-typescript";
 
-import { BearerToken } from "@/utilities/bearer-token";
-
 import { Role } from "@/roles/roles.model";
 import { UserRole } from "@/roles/user-role.model";
 
@@ -33,65 +31,45 @@ export class User extends Model<User, UserCreationAttributes> {
     id: number;
 
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.STRING,
         allowNull: false,
     })
     first_name: string;
 
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.STRING,
         allowNull: false,
     })
     last_name: string;
 
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.STRING,
         unique: true,
         allowNull: false,
     })
     email: string;
 
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.STRING,
         allowNull: false,
     })
     password: string;
 
     @Column({
-        type: DataType.INTEGER,
-    })
-    token: string;
-
-    @Column({
-        type: DataType.DATE,
-    })
-    token_created_at: Date;
-
-    @Column({
-        type: DataType.INTEGER,
+        type: DataType.STRING,
     })
     phone: string;
 
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.STRING,
     })
     about_me: string;
 
     @Column({
-        type: DataType.INTEGER,
+        type: DataType.STRING,
     })
     avatar_url: string;
 
     @BelongsToMany(() => Role, () => UserRole)
     roles: Role[];
-
-    updateTokenOptions() {
-        this.token = BearerToken.generate();
-        this.token_created_at = new Date();
-    }
-
-    removeTokenOptions() {
-        this.token = null;
-        this.token_created_at = null;
-    }
 }

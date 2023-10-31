@@ -23,7 +23,6 @@ export class AuthService {
     }
 
     public async logout(user: User) {
-        user.removeTokenOptions();
         await user.save();
     }
 

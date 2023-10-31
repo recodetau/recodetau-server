@@ -1,10 +1,7 @@
 <script setup>
 import { onMounted, reactive } from "vue";
-import { useStore } from "vuex";
 
 import UserService from "../../service/UserService";
-
-const store = useStore();
 
 const userService = new UserService();
 

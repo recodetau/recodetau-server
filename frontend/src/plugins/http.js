@@ -5,16 +5,16 @@ import { USER_TOKEN_STORAGE_KEY } from "@/datas/constants/app";
 
 import router from "@/router";
 
-const axios = AxiosInstance.create({
+const http = AxiosInstance.create({
     baseURL: SERVER_URL
 });
 
-axios.interceptors.request.use(
+http.interceptors.request.use(
     function (config) {
         const token = localStorage.getItem(USER_TOKEN_STORAGE_KEY);
 
         if (token) {
-            config.headers["Authorization"] = `Bearer ${token}`;
+            config.headers.Authorization = `Bearer ${token}`;
         }
 
         return config;
@@ -24,7 +24,7 @@ axios.interceptors.request.use(
     }
 );
 
-axios.interceptors.response.use(
+http.interceptors.response.use(
     function (response) {
         return response;
     },
@@ -41,6 +41,4 @@ axios.interceptors.response.use(
     }
 );
 
-export function useAxios() {
-    return axios;
-}
+export default http;

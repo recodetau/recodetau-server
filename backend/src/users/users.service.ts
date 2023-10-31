@@ -55,7 +55,6 @@ export class UsersService {
 
         const user: User = await this.userModel.create(userData);
 
-        user.updateTokenOptions();
         await user.save();
 
         return user;
