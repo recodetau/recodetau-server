@@ -1,5 +1,5 @@
 import { Tag } from "@/tags/tags.model";
-import { User } from "@/users/users.model";
+import { User } from "@/users/models/users.model";
 import {
     Model,
     Table,

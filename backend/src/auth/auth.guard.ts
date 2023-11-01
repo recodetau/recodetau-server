@@ -9,7 +9,7 @@ import { ALLOW_UNAUTHORIZED_REQUEST } from "@/auth/decorators/allow-unauthorized
 
 import { UnauthorizedException } from "@/auth/exceptions/unauthorized.exception";
 
-import { User } from "@/users/users.model";
+import { User } from "@/users/models/users.model";
 
 @Injectable()
 export class AuthGuard implements CanActivate {

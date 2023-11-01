@@ -3,7 +3,7 @@ import { InjectModel } from "@nestjs/sequelize";
 
 import { CoursesService } from "../courses.service";
 
-import { User } from "@/users/users.model";
+import { User } from "@/users/models/users.model";
 import { Course } from "../courses.model";
 import { CourseFollower } from "./course-followers.model";
 

@@ -4,12 +4,10 @@ import { Injectable } from "@nestjs/common";
 import { AuthLoginDto } from "./dto/auth-login.dto";
 import { AuthRegistrationDto } from "./dto/auth-registration.dto";
 
+import { User } from "@/users/models/users.model";
 import { UsersService } from "@/users/users.service";
 
-import { User } from "@/users/users.model";
-
 import { AuthorizationException } from "@/auth/exceptions/authorization.exception";
-import { BearerToken } from "@/utilities/bearer-token";
 import { HasUserException } from "@/auth/exceptions/has-user.exception";
 
 @Injectable()
@@ -19,10 +17,14 @@ export class AuthService {
     public async login(authLoginDto: AuthLoginDto) {
         const user: User = await this.validateUser(authLoginDto);
 
-        return await this.validateAPIToken(user);
+        user.login();
+        await user.save();
+
+        return user.token;
     }
 
     public async logout(user: User) {
+        user.logout();
         await user.save();
     }
 
@@ -36,16 +38,6 @@ export class AuthService {
         }
 
         return await this.usersService.createUser(authRegistrationDto);
-    }
-
-    private async validateAPIToken(user: User) {
-        if (BearerToken.validateTokenLife(user) === false) {
-            user.updateTokenOptions();
-
-            await user.save();
-        }
-
-        return user.token;
     }
 
     private async validateUser(dto: AuthLoginDto): Promise<User> {

@@ -12,7 +12,7 @@ import {
 import { CourseFollowersService } from "./course-followers.service";
 
 import { User } from "@/users/decorators/user.decorator";
-import { User as UserModel } from "@/users/users.model";
+import { User as UserModel } from "@/users/models/users.model";
 import { CourseFollower } from "./course-followers.model";
 
 @Controller("followers")

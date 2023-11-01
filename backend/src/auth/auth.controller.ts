@@ -15,7 +15,7 @@ import { AuthRegistrationDto } from "./dto/auth-registration.dto";
 
 import { AllowUnauthorizedRequest } from "@/auth/decorators/allow-unauthorized-request.decorator";
 
-import { User } from "@/users/users.model";
+import { User } from "@/users/models/users.model";
 
 @Controller()
 export class AuthController {

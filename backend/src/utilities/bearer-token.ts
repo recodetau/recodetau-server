@@ -1,5 +1,5 @@
 import { Time } from "./time";
-import { User } from "@/users/users.model";
+import { User } from "@/users/models/users.model";
 import { Hash } from "./hash";
 
 export class BearerToken {

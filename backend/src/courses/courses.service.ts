@@ -5,7 +5,7 @@ import { CreateCourseDto } from "./dto/create-course.dto";
 import { UpdateCourseDto } from "./dto/update-course.dto";
 
 import { Course } from "./courses.model";
-import { User } from "@/users/users.model";
+import { User } from "@/users/models/users.model";
 import { CourseFollower } from "./followers/course-followers.model";
 
 @Injectable()

@@ -9,6 +9,9 @@ import {
     ParseIntPipe,
 } from "@nestjs/common";
 
+import { Roles } from "@/roles/decorators/roles-auth.decorator";
+import { CompanyRole } from "@/roles/user-role.model";
+
 import { PostsService } from "./posts.service";
 
 import { CreatePostDto } from "./dto/create-post.dto";
@@ -29,11 +32,13 @@ export class PostsController {
     }
 
     @Post()
+    @Roles(CompanyRole.Owner, CompanyRole.Administrator, CompanyRole.Redactor)
     async createPost(@Body() createPostDto: CreatePostDto) {
         return await this.postsService.createPost(createPostDto);
     }
 
     @Patch(":id")
+    @Roles(CompanyRole.Owner, CompanyRole.Administrator, CompanyRole.Redactor)
     async updatePost(
         @Param("id", ParseIntPipe) postID: number,
         @Body() updatePostDto: UpdatePostDto,
@@ -42,6 +47,7 @@ export class PostsController {
     }
 
     @Delete(":id")
+    @Roles(CompanyRole.Owner, CompanyRole.Administrator, CompanyRole.Redactor)
     async removePost(@Param("id", ParseIntPipe) postID: number) {
         return await this.postsService.removePost(postID);
     }

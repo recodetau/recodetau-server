@@ -2,10 +2,21 @@ import * as bcrypt from "bcryptjs";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 
-import { User, UserCreationAttributes } from "./users.model";
+import { User, UserCreationAttributes } from "./models/users.model";
 import { UpdateUserDto } from "./dto/update-user.dto";
 
-const USER_EXCLUDE_COLUMN = ["password", "token", "token_created_at"];
+const USER_EXCLUDE_COLUMN: string[] = [
+    "password",
+
+    // token columns
+    "token",
+    "token_created_at",
+
+    // ban columns
+    "banned",
+    "ban_reason",
+    "ban_created_at",
+];
 
 @Injectable()
 export class UsersService {
@@ -54,8 +65,6 @@ export class UsersService {
         userData.password = await bcrypt.hash(userData.password, PasswordSalt);
 
         const user: User = await this.userModel.create(userData);
-
-        await user.save();
 
         return user;
     }

@@ -8,6 +8,7 @@ import {
 
 import { Role } from "@/roles/roles.model";
 import { UserRole } from "@/roles/user-role.model";
+import { Hash } from "@/utilities/hash";
 
 export interface UserCreationAttributes {
     first_name: string;
@@ -70,6 +71,58 @@ export class User extends Model<User, UserCreationAttributes> {
     })
     avatar_url: string;
 
+    // ban settings
+    @Column({
+        type: DataType.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+    })
+    banned: boolean;
+
+    @Column({
+        type: DataType.STRING,
+    })
+    ban_reason: string;
+
+    @Column({
+        type: DataType.DATE,
+    })
+    ban_created_at: Date;
+
+    public ban(banReason: string): void {
+        this.banned = true;
+        this.ban_reason = banReason;
+        this.ban_created_at = new Date();
+    }
+
+    public unban(): void {
+        this.banned = false;
+        this.ban_reason = null;
+        this.ban_created_at = null;
+    }
+
+    // token settings
+    @Column({
+        type: DataType.STRING,
+    })
+    token: string;
+
+    @Column({
+        type: DataType.DATE,
+    })
+    token_created_at: Date;
+
+    public login(): void {
+        this.token = Hash.generate(32);
+        this.token_created_at = new Date();
+    }
+
+    public logout(): void {
+        this.token = null;
+        this.token_created_at = null;
+    }
+
+    // roles settings
     @BelongsToMany(() => Role, () => UserRole)
     roles: Role[];
 }

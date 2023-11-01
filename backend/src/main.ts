@@ -8,6 +8,7 @@ import { UsersService } from "./users/users.service";
 import { Reflector } from "@nestjs/core";
 
 import { RequestValidationPipe } from "./pipes/request-validation.pipe";
+import { UserBanGuard } from "./users/guards/user-ban.guard";
 
 (async () => {
     const app = await NestFactory.create(AppModule);
@@ -15,6 +16,8 @@ import { RequestValidationPipe } from "./pipes/request-validation.pipe";
     app.useGlobalGuards(
         new AuthGuard(app.get(UsersService), app.get(Reflector)),
     );
+    app.useGlobalGuards(new UserBanGuard());
+
     app.useGlobalPipes(new RequestValidationPipe());
 
     app.enableCors();

@@ -39,5 +39,5 @@ services:
       - 80:80
     depends_on:
       - postgres
-      # - backend
+      - backend
       - frontend

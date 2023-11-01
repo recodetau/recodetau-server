@@ -7,7 +7,7 @@ import {
     BelongsTo,
 } from "sequelize-typescript";
 import { Course } from "../courses.model";
-import { User } from "@/users/users.model";
+import { User } from "@/users/models/users.model";
 
 export interface CourseFollowerCreationAttributes {
     course_id: number;
