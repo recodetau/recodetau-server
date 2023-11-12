@@ -2,7 +2,6 @@ import { Model, Table, Column, DataType } from "sequelize-typescript";
 
 export interface RoleCreationAttributes {
     name: string;
-    short_description: string;
 }
 
 @Table({
@@ -23,9 +22,4 @@ export class Role extends Model<Role, RoleCreationAttributes> {
         allowNull: false,
     })
     name: string;
-
-    @Column({
-        type: DataType.STRING,
-    })
-    short_description: string;
 }

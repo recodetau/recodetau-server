@@ -24,18 +24,20 @@ export class AuthController {
     @Post("login")
     @AllowUnauthorizedRequest()
     async login(@Body() dto: AuthLoginDto): Promise<string> {
-        return this.authService.login(dto);
+        console.log(23);
+        return await this.authService.login(dto);
     }
 
     @Post("logout")
     @HttpCode(HttpStatus.NO_CONTENT)
     async logout(@Request() request: AuthenticatedRequest): Promise<void> {
-        return this.authService.logout(request.user);
+        return await this.authService.logout(request.user);
     }
 
     @Post("registration")
+    @HttpCode(HttpStatus.NO_CONTENT)
     @AllowUnauthorizedRequest()
     async registration(@Body() dto: AuthRegistrationDto): Promise<User> {
-        return this.authService.registration(dto);
+        return await this.authService.registration(dto);
     }
 }

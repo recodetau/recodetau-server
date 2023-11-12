@@ -4,7 +4,7 @@ import { SequelizeModule } from "@nestjs/sequelize";
 import { PostsService } from "./posts.service";
 import { PostsController } from "./posts.controller";
 
-import { Post } from "./posts.model";
+import { Post } from "./models/posts.model";
 
 @Module({
     controllers: [PostsController],

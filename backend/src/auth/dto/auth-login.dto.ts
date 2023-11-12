@@ -6,6 +6,6 @@ export class AuthLoginDto {
     readonly email: string;
 
     @IsString()
-    @Length(6, 255)
+    @Length(4, 255)
     readonly password: string;
 }

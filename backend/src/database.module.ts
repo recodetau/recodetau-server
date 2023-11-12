@@ -2,9 +2,9 @@ import { DynamicModule } from "@nestjs/common";
 import { SequelizeModule } from "@nestjs/sequelize";
 
 import { User } from "./users/models/users.model";
-import { Course } from "./courses/courses.model";
+import { Course } from "./courses/models/courses.model";
 import { Tag } from "./tags/tags.model";
-import { Post } from "./posts/posts.model";
+import { Post } from "./posts/models/posts.model";
 import { Role } from "@/roles/roles.model";
 import { UserRole } from "@/roles/user-role.model";
 import { UserEmailVerify } from "./users/models/user-email-verify.model";

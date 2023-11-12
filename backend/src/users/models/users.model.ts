@@ -71,6 +71,13 @@ export class User extends Model<User, UserCreationAttributes> {
     })
     avatar_url: string;
 
+    @Column({
+        type: DataType.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+    })
+    email_verified: boolean;
+
     // ban settings
     @Column({
         type: DataType.BOOLEAN,

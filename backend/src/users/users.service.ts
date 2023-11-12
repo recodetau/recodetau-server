@@ -4,6 +4,7 @@ import { InjectModel } from "@nestjs/sequelize";
 
 import { User, UserCreationAttributes } from "./models/users.model";
 import { UpdateUserDto } from "./dto/update-user.dto";
+import { UserEmailVerify } from "./models/user-email-verify.model";
 
 const USER_EXCLUDE_COLUMN: string[] = [
     "password",
@@ -20,7 +21,13 @@ const USER_EXCLUDE_COLUMN: string[] = [
 
 @Injectable()
 export class UsersService {
-    constructor(@InjectModel(User) private readonly userModel: typeof User) {}
+    constructor(
+        @InjectModel(User)
+        private readonly userModel: typeof User,
+
+        @InjectModel(UserEmailVerify)
+        private readonly userEmailVerifyModel: typeof UserEmailVerify,
+    ) {}
 
     async getUserByID(userID: number): Promise<User> {
         const user = await this.userModel.findOne({
@@ -60,7 +67,7 @@ export class UsersService {
     }
 
     async createUser(userData: UserCreationAttributes): Promise<User> {
-        const PasswordSalt = Number(process.env.PASSWORD_SALT);
+        const PasswordSalt = Number(process.env.BACKEND_PASSWORD_SALT);
 
         userData.password = await bcrypt.hash(userData.password, PasswordSalt);
 
@@ -74,5 +81,36 @@ export class UsersService {
         updateUserDto: UpdateUserDto,
     ): Promise<void> {
         await user.update(updateUserDto);
+    }
+
+    async userEmailVerify(key: string): Promise<void> {
+        const emailVerify = await this.userEmailVerifyModel.findOne({
+            where: {
+                key,
+            },
+        });
+
+        if (emailVerify) {
+            const user = emailVerify.user;
+            user.email_verified = true;
+
+            await user.save();
+        }
+    }
+
+    async userBanned(userID: number, banReason: string): Promise<void> {
+        const user = await this.getUserByID(userID);
+
+        user.ban(banReason);
+
+        await user.save();
+    }
+
+    async userUnbanned(userID: number): Promise<void> {
+        const user = await this.getUserByID(userID);
+
+        user.unban();
+
+        await user.save();
     }
 }

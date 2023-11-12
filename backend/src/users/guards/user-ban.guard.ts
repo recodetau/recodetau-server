@@ -16,14 +16,14 @@ export class UserBanGuard implements CanActivate {
 
         const user: User = request.user;
 
-        if (user) {
-            if (user.banned) {
-                throw new BannedException(user.ban_reason);
-            }
-
+        if (!user) {
             return true;
-        } else {
-            throw new UnauthorizedException();
         }
+
+        if (user.banned) {
+            throw new BannedException(user.ban_reason);
+        }
+
+        return true;
     }
 }

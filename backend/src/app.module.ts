@@ -9,6 +9,7 @@ import { CoursesModule } from "./courses/courses.module";
 import { TagsModule } from "./tags/tags.module";
 import { PostsModule } from "./posts/posts.module";
 import { RolesModule } from "./roles/roles.module";
+import { MailModule } from "./mail/mail.module";
 
 @Module({
     providers: [],
@@ -23,6 +24,7 @@ import { RolesModule } from "./roles/roles.module";
         CoursesModule,
         TagsModule,
         PostsModule,
+        MailModule,
     ],
 })
 export class AppModule {}

@@ -2,7 +2,6 @@ import { Model, Table, Column, DataType } from "sequelize-typescript";
 
 export interface TagCreationAttributes {
     name: string;
-    short_description: string;
 }
 
 @Table({
@@ -23,10 +22,4 @@ export class Tag extends Model<Tag, TagCreationAttributes> {
         allowNull: false,
     })
     name: string;
-
-    @Column({
-        type: DataType.STRING,
-        allowNull: false,
-    })
-    short_description: string;
 }

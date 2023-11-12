@@ -10,6 +10,7 @@ import { ALLOW_UNAUTHORIZED_REQUEST } from "@/auth/decorators/allow-unauthorized
 import { UnauthorizedException } from "@/auth/exceptions/unauthorized.exception";
 
 import { User } from "@/users/models/users.model";
+import { BearerToken } from "@/utilities/bearer-token";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -41,6 +42,10 @@ export class AuthGuard implements CanActivate {
         );
 
         if (user) {
+            if (!BearerToken.validateTokenLife(user)) {
+                return false;
+            }
+
             request.user = user;
 
             return true;

@@ -15,11 +15,11 @@
 3. Запустите бэкенд командой:
 
    ```shell
-   docker-compose up --build
+   sudo docker-compose up --build
    ```
 
    Для разработки используйте:
 
    ```shell
-   docker-compose -f docker-compose.dev.yml up --build
+   sudo docker-compose -f docker-compose.dev.yml up --build
    ```

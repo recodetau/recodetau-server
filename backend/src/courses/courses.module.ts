@@ -7,7 +7,7 @@ import { CoursesController } from "./courses.controller";
 import { CourseFollowersController } from "./followers/course-followers.controller";
 import { CourseFollowersService } from "./followers/course-followers.service";
 
-import { Course } from "./courses.model";
+import { Course } from "./models/courses.model";
 import { CourseFollower } from "./followers/course-followers.model";
 
 @Module({

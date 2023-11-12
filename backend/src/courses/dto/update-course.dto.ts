@@ -1,4 +1,11 @@
-import { IsString, Length, IsInt } from "class-validator";
+import {
+    IsString,
+    Length,
+    IsInt,
+    IsDateString,
+    IsBoolean,
+    IsOptional,
+} from "class-validator";
 
 export class UpdateCourseDto {
     @IsString()
@@ -17,4 +24,18 @@ export class UpdateCourseDto {
 
     @IsInt()
     readonly tag_id: number;
+
+    @IsDateString()
+    beginned_at: Date;
+
+    @IsDateString()
+    @IsOptional()
+    finished_at: Date;
+
+    @IsBoolean()
+    is_online_payment: boolean;
+
+    @IsString()
+    @IsOptional()
+    payment_url: string;
 }

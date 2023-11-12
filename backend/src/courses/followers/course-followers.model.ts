@@ -6,7 +6,7 @@ import {
     ForeignKey,
     BelongsTo,
 } from "sequelize-typescript";
-import { Course } from "../courses.model";
+import { Course } from "../models/courses.model";
 import { User } from "@/users/models/users.model";
 
 export interface CourseFollowerCreationAttributes {

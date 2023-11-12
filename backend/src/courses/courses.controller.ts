@@ -9,12 +9,14 @@ import {
     ParseIntPipe,
 } from "@nestjs/common";
 
+import { Course } from "./models/courses.model";
 import { CoursesService } from "./courses.service";
-
-import { Course } from "./courses.model";
 
 import { CreateCourseDto } from "./dto/create-course.dto";
 import { UpdateCourseDto } from "./dto/update-course.dto";
+
+import { Roles } from "@/roles/decorators/roles-auth.decorator";
+import { CompanyRole } from "@/roles/user-role.model";
 
 @Controller()
 export class CoursesController {
@@ -33,6 +35,7 @@ export class CoursesController {
     }
 
     @Post()
+    @Roles(CompanyRole.Owner, CompanyRole.Administrator)
     async createCourse(
         @Body() createCourseDto: CreateCourseDto,
     ): Promise<Course> {
@@ -40,6 +43,7 @@ export class CoursesController {
     }
 
     @Patch(":id")
+    @Roles(CompanyRole.Owner, CompanyRole.Administrator)
     async updateCourse(
         @Param("id", ParseIntPipe) courseID: number,
         @Body() updateCourseDto: UpdateCourseDto,
@@ -48,6 +52,7 @@ export class CoursesController {
     }
 
     @Delete(":id")
+    @Roles(CompanyRole.Owner, CompanyRole.Administrator)
     async removeCourse(
         @Param("id", ParseIntPipe) courseID: number,
     ): Promise<void> {

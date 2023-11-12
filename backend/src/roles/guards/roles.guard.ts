@@ -4,21 +4,18 @@ import {
     HttpException,
     HttpStatus,
     Injectable,
-    UnauthorizedException,
 } from "@nestjs/common";
-
-import { Observable } from "rxjs";
 import { Reflector } from "@nestjs/core";
+
 import { ROLES_KEY } from "../decorators/roles-auth.decorator";
 import { AuthenticatedRequest } from "@/types/requests";
+import { UnauthorizedException } from "@/auth/exceptions/unauthorized.exception";
 
 @Injectable()
 export class RolesGuard implements CanActivate {
     constructor(private reflector: Reflector) {}
 
-    canActivate(
-        context: ExecutionContext,
-    ): boolean | Promise<boolean> | Observable<boolean> {
+    canActivate(context: ExecutionContext): boolean | Promise<boolean> {
         try {
             const requiredRoles = this.reflector.getAllAndOverride<string[]>(
                 ROLES_KEY,
@@ -34,9 +31,7 @@ export class RolesGuard implements CanActivate {
                 .getRequest<AuthenticatedRequest>();
 
             if (!request.user) {
-                throw new UnauthorizedException({
-                    message: "Пользователь не авторизован",
-                });
+                throw new UnauthorizedException();
             }
 
             return request.user.roles.some((role) =>

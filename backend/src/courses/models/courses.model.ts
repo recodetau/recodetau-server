@@ -15,6 +15,10 @@ export interface CourseCreationAttributes {
     image_url: string;
     price: number;
     tag_id: number;
+    beginned_at: Date;
+    finished_at: Date;
+    is_online_payment: boolean;
+    payment_url: string;
 }
 
 @Table({
@@ -64,4 +68,27 @@ export class Course extends Model<Course, CourseCreationAttributes> {
 
     @BelongsTo(() => Tag)
     tag: Tag;
+
+    @Column({
+        type: DataType.DATE,
+        allowNull: false,
+    })
+    beginned_at: Date;
+
+    @Column({
+        type: DataType.DATE,
+    })
+    finished_at: Date;
+
+    @Column({
+        type: DataType.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+    })
+    is_online_payment: boolean;
+
+    @Column({
+        type: DataType.STRING,
+    })
+    payment_url: string;
 }
