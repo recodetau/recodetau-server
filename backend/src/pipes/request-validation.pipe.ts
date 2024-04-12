@@ -1,6 +1,6 @@
 import { RequestValidationException } from "@/exceptions/request-validation.exception";
 import { ArgumentMetadata, Injectable, PipeTransform } from "@nestjs/common";
-import { plainToClass } from "class-transformer";
+import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
 
 @Injectable()
@@ -10,7 +10,7 @@ export class RequestValidationPipe implements PipeTransform<any> {
             return value;
         }
 
-        const obj = plainToClass(metadata.metatype, value);
+        const obj = plainToInstance(metadata.metatype, value);
         const errors = await validate(obj);
 
         if (errors.length) {
@@ -19,7 +19,7 @@ export class RequestValidationPipe implements PipeTransform<any> {
             errors.forEach((errorItem) => {
                 messages[errorItem.property] = Object.keys(
                     errorItem.constraints,
-                ).forEach((errorType) => {
+                ).map((errorType) => {
                     return errorItem.constraints[errorType];
                 });
             });

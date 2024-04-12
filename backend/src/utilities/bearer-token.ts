@@ -1,7 +1,6 @@
-import { User } from "@/users/models/users.model";
-
 import { Time } from "./time";
 import { Hash } from "./hash";
+import { UserToken } from "@/users/models/user-tokens.model";
 
 export class BearerToken {
     public static generate(): string {
@@ -10,13 +9,13 @@ export class BearerToken {
         return Hash.generate(tokenLength);
     }
 
-    public static validateTokenLife(user: User) {
-        if (user.token && user.token_created_at) {
+    public static validateTokenLife(userToken: UserToken) {
+        if (userToken.token && userToken.createdAt) {
             const tokenLifetime = Number(process.env.BACKEND_TOKEN_LIFETIME);
 
             const time =
                 Time.getCurrentUnixTime() -
-                Time.convertToUnixTime(user.token_created_at);
+                Time.convertToUnixTime(userToken.createdAt);
 
             return time < tokenLifetime;
         }

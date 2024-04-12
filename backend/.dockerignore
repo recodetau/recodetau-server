@@ -1,5 +1,4 @@
 Dockerfile
-Dockerfile.dev
 .dockerignore
 .gitignore
 .prettierrc
@@ -7,4 +6,5 @@ node_modules
 npm-debug.log
 dist
 .vscode
+.idea
 README.md

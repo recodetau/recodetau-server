@@ -14,18 +14,12 @@ import { HasUserException } from "@/auth/exceptions/has-user.exception";
 export class AuthService {
     public constructor(private readonly usersService: UsersService) {}
 
-    public async login(authLoginDto: AuthLoginDto) {
+    public async login(authLoginDto: AuthLoginDto): Promise<User> {
         const user: User = await this.validateUser(authLoginDto);
 
-        user.login();
         await user.save();
 
-        return user.token;
-    }
-
-    public async logout(user: User) {
-        user.logout();
-        await user.save();
+        return user;
     }
 
     public async registration(authRegistrationDto: AuthRegistrationDto) {
@@ -42,8 +36,6 @@ export class AuthService {
 
     private async validateUser(dto: AuthLoginDto): Promise<User> {
         const user = await this.usersService.getUserByEmail(dto.email);
-
-        console.log(user);
 
         if (user) {
             const passwordEquals = await bcrypt.compare(

@@ -5,11 +5,6 @@ import { CreateRouterModule } from "./router";
 
 import { AuthModule } from "./auth/auth.module";
 import { UsersModule } from "./users/users.module";
-import { CoursesModule } from "./courses/courses.module";
-import { TagsModule } from "./tags/tags.module";
-import { PostsModule } from "./posts/posts.module";
-import { RolesModule } from "./roles/roles.module";
-import { MailModule } from "./mail/mail.module";
 
 @Module({
     providers: [],
@@ -20,11 +15,6 @@ import { MailModule } from "./mail/mail.module";
 
         AuthModule,
         UsersModule,
-        RolesModule,
-        CoursesModule,
-        TagsModule,
-        PostsModule,
-        MailModule,
     ],
 })
 export class AppModule {}

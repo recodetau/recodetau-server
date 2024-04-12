@@ -1,8 +1,12 @@
 version: "3"
 
 services:
-  frontend:
-    build: ./frontend
+  postgres:
+    image: postgres:15-alpine
+    restart: always
+    volumes:
+      - recodetau_postgres_data:/var/lib/postgresql/data
+    env_file: .env
 
   backend:
     build: ./backend
@@ -10,13 +14,6 @@ services:
     env_file: .env
     depends_on:
       - postgres
-
-  postgres:
-    image: postgres:15-alpine
-    restart: always
-    volumes:
-      - ./postgres/:/var/lib/postgresql/data
-    env_file: .env
 
   adminer:
     image: adminer
@@ -28,11 +25,14 @@ services:
     image: nginx:1.24.0-alpine
     restart: always
     volumes:
-      - ./nginx/conf/bytehub.conf:/etc/nginx/nginx.conf
-      - ./frontend/dist:/usr/share/nginx/html
+      - ./nginx/conf/recodetau.conf:/etc/nginx/nginx.conf
+#      - ./frontend/dist:/usr/share/nginx/html
     ports:
       - 80:80
     depends_on:
       - postgres
       - backend
-      - frontend
+
+
+volumes:
+  recodetau_postgres_data:

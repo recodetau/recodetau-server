@@ -9,8 +9,8 @@ import { ALLOW_UNAUTHORIZED_REQUEST } from "@/auth/decorators/allow-unauthorized
 
 import { UnauthorizedException } from "@/auth/exceptions/unauthorized.exception";
 
-import { User } from "@/users/models/users.model";
 import { BearerToken } from "@/utilities/bearer-token";
+import { UserToken } from "@/users/models/user-tokens.model";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -33,20 +33,20 @@ export class AuthGuard implements CanActivate {
             .switchToHttp()
             .getRequest<AuthenticatedRequest>();
 
-        const userAccesToken = AuthGuard.validateAuthorizationHeader(
+        const userAccessToken = AuthGuard.validateAuthorizationHeader(
             request.headers.authorization,
         );
 
-        const user: User = await this.userService.getUserByAPIToken(
-            userAccesToken,
+        const userToken: UserToken = await this.userService.getUserByAPIToken(
+            userAccessToken,
         );
 
-        if (user) {
-            if (!BearerToken.validateTokenLife(user)) {
+        if (userToken.user) {
+            if (!BearerToken.validateTokenLife(userToken)) {
                 return false;
             }
 
-            request.user = user;
+            request.user = userToken.user;
 
             return true;
         }

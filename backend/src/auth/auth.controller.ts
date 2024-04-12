@@ -1,14 +1,6 @@
-import {
-    Body,
-    Controller,
-    HttpCode,
-    Post,
-    Request,
-    HttpStatus,
-} from "@nestjs/common";
+import { Body, Controller, HttpCode, Post, HttpStatus } from "@nestjs/common";
 
 import { AuthService } from "./auth.service";
-import { AuthenticatedRequest } from "@/types/requests";
 
 import { AuthLoginDto } from "./dto/auth-login.dto";
 import { AuthRegistrationDto } from "./dto/auth-registration.dto";
@@ -23,15 +15,8 @@ export class AuthController {
 
     @Post("login")
     @AllowUnauthorizedRequest()
-    async login(@Body() dto: AuthLoginDto): Promise<string> {
-        console.log(23);
+    async login(@Body() dto: AuthLoginDto): Promise<User> {
         return await this.authService.login(dto);
-    }
-
-    @Post("logout")
-    @HttpCode(HttpStatus.NO_CONTENT)
-    async logout(@Request() request: AuthenticatedRequest): Promise<void> {
-        return await this.authService.logout(request.user);
     }
 
     @Post("registration")
