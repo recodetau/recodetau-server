@@ -20,13 +20,14 @@ services:
     restart: always
     ports:
       - 9642:8080
+    depends_on:
+      - postgres
 
-  nginx:
-    image: nginx:1.24.0-alpine
+  frontend:
+    build: ./frontend
     restart: always
     volumes:
       - ./nginx/conf/recodetau.conf:/etc/nginx/nginx.conf
-#      - ./frontend/dist:/usr/share/nginx/html
     ports:
       - 80:80
     depends_on:
