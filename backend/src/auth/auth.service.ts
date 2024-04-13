@@ -41,6 +41,11 @@ export class AuthService {
         }
 
         await this.usersService.createUser(authRegistrationDto);
+
+        return await this.userTokenModel.create({
+            userID: user.id,
+            token: BearerToken.generate(),
+        });
     }
 
     private async validateUser(dto: AuthLoginDto): Promise<User> {

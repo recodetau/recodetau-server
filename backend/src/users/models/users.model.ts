@@ -1,4 +1,12 @@
-import { Model, Table, Column, DataType } from "sequelize-typescript";
+import {
+    Model,
+    Table,
+    Column,
+    DataType,
+    BelongsToMany,
+} from "sequelize-typescript";
+import { Company } from "@/companies/models/componies.model";
+import { CompanyOwner } from "@/companies/models/company-owner.model";
 
 export interface UserCreationAttributes {
     firstName: string;
@@ -44,4 +52,7 @@ export class User extends Model<User, UserCreationAttributes> {
         allowNull: false,
     })
     password: string;
+
+    @BelongsToMany(() => Company, () => CompanyOwner)
+    companies: Company[];
 }

@@ -1,8 +1,12 @@
 import { DynamicModule } from "@nestjs/common";
 import { SequelizeModule } from "@nestjs/sequelize";
 
-import { User } from "./users/models/users.model";
+import { User } from "@/users/models/users.model";
 import { UserToken } from "@/users/models/user-tokens.model";
+
+import { Company } from "@/companies/models/componies.model";
+import { CompanyType } from "@/companies/models/company-types.model";
+import { CompanyOwner } from "@/companies/models/company-owner.model";
 
 export const CreateDatabaseModule = (): DynamicModule => {
     return SequelizeModule.forRoot({
@@ -16,6 +20,6 @@ export const CreateDatabaseModule = (): DynamicModule => {
         database: process.env.POSTGRES_DB,
         logging: false,
 
-        models: [User, UserToken],
+        models: [User, UserToken, Company, CompanyType, CompanyOwner],
     });
 };

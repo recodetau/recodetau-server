@@ -8,19 +8,22 @@ import {
 } from "sequelize-typescript";
 
 import { User } from "@/users/models/users.model";
+import { Company } from "@/companies/models/componies.model";
 
-export interface UserTokenCreationAttributes {
+export interface CompanyOwnerCreationAttributes {
     userID: number;
-    token: string;
+    companyID: number;
+    moderated?: boolean;
 }
 
 @Table({
-    tableName: "userTokens",
+    tableName: "companyOwners",
     timestamps: true,
-    createdAt: true,
-    updatedAt: false,
 })
-export class UserToken extends Model<UserToken, UserTokenCreationAttributes> {
+export class CompanyOwner extends Model<
+    CompanyOwner,
+    CompanyOwnerCreationAttributes
+> {
     @Column({
         type: DataType.INTEGER,
         unique: true,
@@ -36,13 +39,23 @@ export class UserToken extends Model<UserToken, UserTokenCreationAttributes> {
     })
     userID: number;
 
+    @ForeignKey(() => Company)
     @Column({
-        type: DataType.STRING,
-        unique: true,
+        type: DataType.NUMBER,
         allowNull: false,
     })
-    token: string;
+    companyID: number;
+
+    @Column({
+        type: DataType.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+    })
+    moderated: boolean;
 
     @BelongsTo(() => User)
     user: User;
+
+    @BelongsTo(() => Company)
+    company: Company;
 }

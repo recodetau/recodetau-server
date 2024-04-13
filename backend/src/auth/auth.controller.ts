@@ -22,7 +22,7 @@ export class AuthController {
     @Post("registration")
     @HttpCode(HttpStatus.NO_CONTENT)
     @AllowUnauthorizedRequest()
-    async registration(@Body() dto: AuthRegistrationDto): Promise<void> {
-        await this.authService.registration(dto);
+    async registration(@Body() dto: AuthRegistrationDto): Promise<UserToken> {
+        return await this.authService.registration(dto);
     }
 }
