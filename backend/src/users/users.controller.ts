@@ -5,6 +5,7 @@ import {
     Param,
     ParseIntPipe,
     Patch,
+    Req,
     HttpCode,
     HttpStatus,
 } from "@nestjs/common";
@@ -13,16 +14,15 @@ import { UsersService } from "./users.service";
 
 import { UpdateUserDto } from "./dto/update-user.dto";
 
-import { User as UserModel } from "./models/users.model";
-import { User } from "@/users/decorators/user.decorator";
+import { AuthenticatedRequest } from "@/types/requests";
 
 @Controller()
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
     @Get("me")
-    async getCurrentUser(@User() user: UserModel) {
-        return user;
+    async getCurrentUser(@Req() user: AuthenticatedRequest) {
+        return user.user;
     }
 
     @Get(":id")
@@ -33,9 +33,12 @@ export class UsersController {
     @Patch()
     @HttpCode(HttpStatus.NO_CONTENT)
     async updateUser(
-        @User() user: UserModel,
+        @Req() request: AuthenticatedRequest,
         @Body() updateUserDto: UpdateUserDto,
     ) {
-        return await this.usersService.updateCurrentUser(user, updateUserDto);
+        return await this.usersService.updateCurrentUser(
+            request.user,
+            updateUserDto,
+        );
     }
 }

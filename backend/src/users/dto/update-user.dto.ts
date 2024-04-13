@@ -3,9 +3,9 @@ import { IsString, Length } from "class-validator";
 export class UpdateUserDto {
     @IsString()
     @Length(2, 30)
-    readonly first_name: string;
+    readonly firstName: string;
 
     @IsString()
     @Length(2, 30)
-    readonly last_name: string;
+    readonly lastName: string;
 }

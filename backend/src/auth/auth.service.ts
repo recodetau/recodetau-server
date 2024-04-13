@@ -1,25 +1,34 @@
 import * as bcrypt from "bcryptjs";
 import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/sequelize";
 
 import { AuthLoginDto } from "./dto/auth-login.dto";
 import { AuthRegistrationDto } from "./dto/auth-registration.dto";
 
 import { User } from "@/users/models/users.model";
 import { UsersService } from "@/users/users.service";
+import { UserToken } from "@/users/models/user-tokens.model";
 
 import { AuthorizationException } from "@/auth/exceptions/authorization.exception";
 import { HasUserException } from "@/auth/exceptions/has-user.exception";
+import { BearerToken } from "@/utilities/bearer-token";
 
 @Injectable()
 export class AuthService {
-    public constructor(private readonly usersService: UsersService) {}
+    public constructor(
+        private readonly usersService: UsersService,
 
-    public async login(authLoginDto: AuthLoginDto): Promise<User> {
+        @InjectModel(UserToken)
+        private readonly userTokenModel: typeof UserToken,
+    ) {}
+
+    public async login(authLoginDto: AuthLoginDto): Promise<UserToken> {
         const user: User = await this.validateUser(authLoginDto);
 
-        await user.save();
-
-        return user;
+        return await this.userTokenModel.create({
+            userID: user.id,
+            token: BearerToken.generate(),
+        });
     }
 
     public async registration(authRegistrationDto: AuthRegistrationDto) {
@@ -31,7 +40,7 @@ export class AuthService {
             throw new HasUserException();
         }
 
-        return await this.usersService.createUser(authRegistrationDto);
+        await this.usersService.createUser(authRegistrationDto);
     }
 
     private async validateUser(dto: AuthLoginDto): Promise<User> {

@@ -10,15 +10,14 @@ import {
 import { User } from "@/users/models/users.model";
 
 export interface UserTokenCreationAttributes {
-    first_name: string;
-    last_name: string;
-    email: string;
-    password: string;
+    userID: number;
+    token: string;
 }
 
 @Table({
     tableName: "user_tokens",
-    createdAt: "created_at",
+    timestamps: true,
+    createdAt: true,
     updatedAt: false,
 })
 export class UserToken extends Model<UserToken, UserTokenCreationAttributes> {
@@ -35,7 +34,7 @@ export class UserToken extends Model<UserToken, UserTokenCreationAttributes> {
         type: DataType.NUMBER,
         allowNull: false,
     })
-    user_id: number;
+    userID: number;
 
     @Column({
         type: DataType.STRING,

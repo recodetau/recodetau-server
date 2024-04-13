@@ -41,7 +41,7 @@ export class AuthGuard implements CanActivate {
             userAccessToken,
         );
 
-        if (userToken.user) {
+        if (userToken) {
             if (!BearerToken.validateTokenLife(userToken)) {
                 return false;
             }

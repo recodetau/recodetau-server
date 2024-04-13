@@ -10,12 +10,12 @@ export class BearerToken {
     }
 
     public static validateTokenLife(userToken: UserToken) {
-        if (userToken.token && userToken.createdAt) {
+        if (userToken) {
             const tokenLifetime = Number(process.env.BACKEND_TOKEN_LIFETIME);
 
             const time =
                 Time.getCurrentUnixTime() -
-                Time.convertToUnixTime(userToken.createdAt);
+                Time.convertToUnixTime(new Date(userToken.createdAt));
 
             return time < tokenLifetime;
         }

@@ -1,16 +1,15 @@
 import { Model, Table, Column, DataType } from "sequelize-typescript";
 
 export interface UserCreationAttributes {
-    first_name: string;
-    last_name: string;
+    firstName: string;
+    lastName: string;
     email: string;
     password: string;
 }
 
 @Table({
     tableName: "users",
-    createdAt: "created_at",
-    updatedAt: "updated_at",
+    timestamps: true,
 })
 export class User extends Model<User, UserCreationAttributes> {
     @Column({
@@ -25,13 +24,13 @@ export class User extends Model<User, UserCreationAttributes> {
         type: DataType.STRING,
         allowNull: false,
     })
-    first_name: string;
+    firstName: string;
 
     @Column({
         type: DataType.STRING,
         allowNull: false,
     })
-    last_name: string;
+    lastName: string;
 
     @Column({
         type: DataType.STRING,

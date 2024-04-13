@@ -7,7 +7,7 @@ import { AuthRegistrationDto } from "./dto/auth-registration.dto";
 
 import { AllowUnauthorizedRequest } from "@/auth/decorators/allow-unauthorized-request.decorator";
 
-import { User } from "@/users/models/users.model";
+import { UserToken } from "@/users/models/user-tokens.model";
 
 @Controller()
 export class AuthController {
@@ -15,14 +15,14 @@ export class AuthController {
 
     @Post("login")
     @AllowUnauthorizedRequest()
-    async login(@Body() dto: AuthLoginDto): Promise<User> {
+    async login(@Body() dto: AuthLoginDto): Promise<UserToken> {
         return await this.authService.login(dto);
     }
 
     @Post("registration")
     @HttpCode(HttpStatus.NO_CONTENT)
     @AllowUnauthorizedRequest()
-    async registration(@Body() dto: AuthRegistrationDto): Promise<User> {
-        return await this.authService.registration(dto);
+    async registration(@Body() dto: AuthRegistrationDto): Promise<void> {
+        await this.authService.registration(dto);
     }
 }
