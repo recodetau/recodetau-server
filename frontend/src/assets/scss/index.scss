@@ -1,17 +1,18 @@
-@import "primereact/resources/themes/lara-light-cyan/theme.css";
+@import "primereact/resources/themes/lara-light-green/theme.css";
 @import "primeflex/primeflex.css";
+@import "primeicons/primeicons.css";
 
 $mainColor: #caff33;
 
 *,
 *::after,
 *::before {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
 body {
+  margin: 0;
+  padding: 0;
   font-size: 16px;
 }
 
@@ -19,6 +20,23 @@ body {
   max-width: 1440px;
   width: 100%;
   margin: 0 auto;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+
+  h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+
+    margin-left: 1rem;
+  }
+
+  img {
+    width: 2rem;
+    height: 2rem;
+  }
 }
 
 @import "./pages/landing";

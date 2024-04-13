@@ -7,7 +7,7 @@ import { LANDING_PAGE } from "../constants/pages.js";
 export function DashboardLayout() {
   const user = useSelector((state) => state.user.user);
 
-  if (!user) {
+  if (user) {
     return <Navigate to={LANDING_PAGE} />;
   }
 

@@ -6,23 +6,6 @@
     color: $mainColor;
   }
 
-  .icon {
-    display: flex;
-    align-items: center;
-
-    h1 {
-      font-size: 1.25rem;
-      font-weight: 700;
-
-      margin-left: 1rem;
-    }
-
-    img {
-      width: 2rem;
-      height: 2rem;
-    }
-  }
-
   &-header {
     display: flex;
     justify-content: space-between;
@@ -48,7 +31,20 @@
     font-family: inherit;
     font-weight: 500;
     border-radius: 5.125rem;
+    color: #1a1a1a;
     background: $mainColor;
+    font-size: 1.025rem;
+    border: none;
+    padding: 1rem 1.75rem;
+    cursor: pointer;
+  }
+
+  &-empty-button {
+    font-family: inherit;
+    font-weight: 500;
+    border-radius: 5.125rem;
+    background: transparent;
+    color: #fff;
     font-size: 1.025rem;
     border: none;
     padding: 1rem 1.75rem;
@@ -118,6 +114,10 @@
                 rgba(202, 255, 51, 0.1) -66.22%,
                 rgba(202, 255, 51, 0) 85.46%
               );
+
+              svg {
+                color: $mainColor;
+              }
             }
           }
         }

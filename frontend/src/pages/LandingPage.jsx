@@ -3,11 +3,19 @@ import { MdArrowOutward, MdEmail, MdWork } from "react-icons/md";
 import { FaLocationDot, FaMoneyBills } from "react-icons/fa6";
 import { ImDropbox } from "react-icons/im";
 import { FaPhoneAlt } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
-import { INDEX_PAGE } from "../constants/pages.js";
+import {
+  INDEX_PAGE,
+  LANDING_PAGE,
+  LOGIN_PAGE,
+  REGISTER_PAGE,
+} from "../constants/pages.js";
 
 export function LandingPage() {
   const navigate = useNavigate();
+
+  const user = useSelector((state) => state.user.user);
 
   return (
     <div className="landing">
@@ -18,7 +26,35 @@ export function LandingPage() {
             <h1>Soft Hand</h1>
           </div>
 
-          <div className="auth-buttons"></div>
+          <div className="auth-buttons">
+            {user === null || user === undefined ? (
+              <>
+                <button
+                  className="landing-empty-button"
+                  onClick={() => {
+                    navigate(LOGIN_PAGE);
+                  }}
+                >
+                  Регистрация
+                </button>
+                <button
+                  className="landing-button"
+                  onClick={() => {
+                    navigate(REGISTER_PAGE);
+                  }}
+                >
+                  Авторизоваться
+                </button>
+              </>
+            ) : (
+              <button
+                className="landing-empty-button"
+                onClick={() => navigate(INDEX_PAGE)}
+              >
+                В кабинет
+              </button>
+            )}
+          </div>
         </header>
 
         <section className="landing-hero">
@@ -42,12 +78,7 @@ export function LandingPage() {
             новые перспективы для вашего бизнеса!
           </p>
 
-          <button
-            className="landing-button"
-            onClick={() => navigate(INDEX_PAGE)}
-          >
-            Открытый аккаунт
-          </button>
+          <button className="landing-button">Открыт аккаунт</button>
         </section>
 
         <section className="landing-services">
@@ -180,7 +211,7 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section className="landing-footer">
+        <footer className="landing-footer">
           <div className="icon">
             <img src="/ticon.png" alt="logo" />
             <h1>Soft Hand</h1>
@@ -202,7 +233,7 @@ export function LandingPage() {
               <p>Satbayev University</p>
             </div>
           </div>
-        </section>
+        </footer>
       </div>
     </div>
   );
