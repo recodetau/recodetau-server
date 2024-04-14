@@ -1,12 +1,38 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
-import { useNavigate } from "react-router-dom";
 
-import { LANDING_PAGE, REGISTER_PAGE } from "../../constants/pages.js";
+import { INDEX_PAGE, REGISTER_PAGE } from "../../constants/pages.js";
+import UsersApi from "../../api/users.api.js";
+import { useDispatch } from "react-redux";
+import { saveToken, saveUser } from "../../store/slices/user.slice.js";
 
 export function LoginPage() {
   const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const onLoginSubmit = async () => {
+    try {
+      const userToken = await UsersApi.login(email, password);
+
+      dispatch(saveToken(userToken.token));
+
+      const userInfo = await UsersApi.getMeInfo();
+
+      dispatch(saveUser(userInfo));
+
+      navigate(INDEX_PAGE);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <div className="flex align-items-center justify-content-center h-screen">
@@ -35,7 +61,9 @@ export function LoginPage() {
           </label>
           <InputText
             id="email"
-            type="text"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Адресс почты"
             className="w-full mb-3"
           />
@@ -47,13 +75,20 @@ export function LoginPage() {
           <InputText
             id="password"
             type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Пароль"
             className="w-full mb-3"
           />
 
           <div className="flex align-items-center justify-content-between mb-6">
             <div className="flex align-items-center">
-              <Checkbox id="rememberme" className="mr-2" checked />
+              <Checkbox
+                id="rememberme"
+                className="mr-2"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.checked)}
+              />
               <label htmlFor="rememberme">Запомнить меня</label>
             </div>
 
@@ -66,7 +101,7 @@ export function LoginPage() {
             label="Зайти"
             icon="pi pi-user"
             className="w-full"
-            onClick={() => navigate(LANDING_PAGE)}
+            onClick={onLoginSubmit}
           />
         </div>
       </div>

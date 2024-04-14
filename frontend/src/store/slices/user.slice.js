@@ -11,15 +11,17 @@ export const counterSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    saveToken: (state, action) => {
+      state.token = action.payload;
+      sessionStorage.setItem(USER_TOKEN_LOCALSTOTAGE_KEY, state.token);
+    },
     saveUser: (state, action) => {
       state.user = action.payload;
       state.token = state.user.token;
-
-      sessionStorage.setItem(USER_TOKEN_LOCALSTOTAGE_KEY, state.token);
     },
   },
 });
 
-export const { saveUser } = counterSlice.actions;
+export const { saveToken, saveUser } = counterSlice.actions;
 
 export default counterSlice.reducer;

@@ -5,12 +5,7 @@ import { ImDropbox } from "react-icons/im";
 import { FaPhoneAlt } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
-import {
-  INDEX_PAGE,
-  LANDING_PAGE,
-  LOGIN_PAGE,
-  REGISTER_PAGE,
-} from "../constants/pages.js";
+import { INDEX_PAGE, LOGIN_PAGE, REGISTER_PAGE } from "../constants/pages.js";
 
 export function LandingPage() {
   const navigate = useNavigate();
@@ -27,12 +22,12 @@ export function LandingPage() {
           </div>
 
           <div className="auth-buttons">
-            {user === null || user === undefined ? (
+            {user === null ? (
               <>
                 <button
                   className="landing-empty-button"
                   onClick={() => {
-                    navigate(LOGIN_PAGE);
+                    navigate(REGISTER_PAGE);
                   }}
                 >
                   Регистрация
@@ -40,7 +35,7 @@ export function LandingPage() {
                 <button
                   className="landing-button"
                   onClick={() => {
-                    navigate(REGISTER_PAGE);
+                    navigate(LOGIN_PAGE);
                   }}
                 >
                   Авторизоваться
@@ -78,7 +73,12 @@ export function LandingPage() {
             новые перспективы для вашего бизнеса!
           </p>
 
-          <button className="landing-button">Открыт аккаунт</button>
+          <button
+            className="landing-button"
+            onClick={() => navigate(INDEX_PAGE)}
+          >
+            Открыт аккаунт
+          </button>
         </section>
 
         <section className="landing-services">

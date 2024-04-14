@@ -3,7 +3,7 @@ import AxiosInstance from "axios";
 import { USER_TOKEN_LOCALSTOTAGE_KEY } from "../constants/users.js";
 
 const http = AxiosInstance.create({
-  baseURL: "http://localhost",
+  baseURL: "http://localhost/api",
 });
 
 http.interceptors.request.use(
