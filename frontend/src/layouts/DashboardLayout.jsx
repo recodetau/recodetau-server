@@ -39,7 +39,7 @@ export function DashboardLayout() {
       {navigationItems.map((item) => (
         <div
           key={item.text}
-          className="font-bold mr-2 cursor-pointer"
+          className="font-bold mr-3 cursor-pointer"
           onClick={() => navigate(item.url)}
         >
           {item.text}
