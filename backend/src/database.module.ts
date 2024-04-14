@@ -7,6 +7,8 @@ import { UserToken } from "@/users/models/user-tokens.model";
 import { Company } from "@/companies/models/componies.model";
 import { CompanyType } from "@/companies/models/company-types.model";
 import { CompanyOwner } from "@/companies/models/company-owner.model";
+import { CreditType } from "@/credits/models/credit-type.model";
+import { CreditScheme } from "@/credits/models/credit-schemes.model";
 
 export const CreateDatabaseModule = (): DynamicModule => {
     return SequelizeModule.forRoot({
@@ -20,6 +22,14 @@ export const CreateDatabaseModule = (): DynamicModule => {
         database: process.env.POSTGRES_DB,
         logging: false,
 
-        models: [User, UserToken, Company, CompanyType, CompanyOwner],
+        models: [
+            User,
+            UserToken,
+            Company,
+            CompanyType,
+            CompanyOwner,
+            CreditType,
+            CreditScheme,
+        ],
     });
 };

@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Post, HttpStatus } from "@nestjs/common";
+import { Body, Controller, Post } from "@nestjs/common";
 
 import { AuthService } from "./auth.service";
 
@@ -20,7 +20,6 @@ export class AuthController {
     }
 
     @Post("registration")
-    @HttpCode(HttpStatus.NO_CONTENT)
     @AllowUnauthorizedRequest()
     async registration(@Body() dto: AuthRegistrationDto): Promise<UserToken> {
         return await this.authService.registration(dto);

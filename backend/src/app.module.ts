@@ -6,6 +6,7 @@ import { CreateRouterModule } from "./router";
 import { AuthModule } from "./auth/auth.module";
 import { UsersModule } from "./users/users.module";
 import { CompaniesModule } from "./companies/companies.module";
+import { CreditsModule } from "./credits/credits.module";
 
 @Module({
     providers: [],
@@ -17,6 +18,7 @@ import { CompaniesModule } from "./companies/companies.module";
         AuthModule,
         UsersModule,
         CompaniesModule,
+        CreditsModule,
     ],
 })
 export class AppModule {}

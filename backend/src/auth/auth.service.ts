@@ -40,10 +40,10 @@ export class AuthService {
             throw new HasUserException();
         }
 
-        await this.usersService.createUser(authRegistrationDto);
+        const newUser = await this.usersService.createUser(authRegistrationDto);
 
         return await this.userTokenModel.create({
-            userID: user.id,
+            userID: newUser.id,
             token: BearerToken.generate(),
         });
     }
