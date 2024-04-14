@@ -17,12 +17,10 @@ import {
   CREDIT_PAGE,
   INDEX_PAGE,
   LANDING_PAGE,
-  LEASING_PAGE,
   LOGIN_PAGE,
   REGISTER_PAGE,
 } from "./constants/pages.js";
 import { CreditPage } from "./pages/dashboard/CreditPage.jsx";
-import { LeasingPage } from "./pages/dashboard/LeasingPage.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
@@ -37,7 +35,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route element={<DashboardLayout />}>
             <Route index path={INDEX_PAGE} element={<IndexPage />} />
             <Route path={CREDIT_PAGE} element={<CreditPage />} />
-            <Route path={LEASING_PAGE} element={<LeasingPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

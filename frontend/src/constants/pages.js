@@ -6,5 +6,4 @@ export const REGISTER_PAGE = "/auth/registration";
 
 // dashboard pages
 export const INDEX_PAGE = "/";
-export const LEASING_PAGE = "/leasing";
 export const CREDIT_PAGE = "/credit";

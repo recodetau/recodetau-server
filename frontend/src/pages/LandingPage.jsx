@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { MdArrowOutward, MdEmail, MdWork } from "react-icons/md";
-import { FaLocationDot, FaMoneyBills } from "react-icons/fa6";
+import { MdArrowOutward, MdWork } from "react-icons/md";
+import { FaMoneyBills } from "react-icons/fa6";
 import { ImDropbox } from "react-icons/im";
-import { FaPhoneAlt } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 import { INDEX_PAGE, LOGIN_PAGE, REGISTER_PAGE } from "../constants/pages.js";
+import { Footer } from "../components/Footer.jsx";
 
 export function LandingPage() {
   const navigate = useNavigate();
@@ -211,29 +211,7 @@ export function LandingPage() {
           </div>
         </section>
 
-        <footer className="landing-footer">
-          <div className="icon">
-            <img src="/ticon.png" alt="logo" />
-            <h1>Soft Hand</h1>
-          </div>
-
-          <div className="socials">
-            <div>
-              <MdEmail size={20} />
-              <p>softhand@gmail.com</p>
-            </div>
-
-            <div>
-              <FaPhoneAlt size={20} />
-              <p>+7 (707) 325 86 93</p>
-            </div>
-
-            <div>
-              <FaLocationDot size={20} />
-              <p>Satbayev University</p>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </div>
   );

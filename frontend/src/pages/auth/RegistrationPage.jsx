@@ -1,12 +1,43 @@
 import { InputText } from "primereact/inputtext";
-import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import { LANDING_PAGE, LOGIN_PAGE } from "../../constants/pages.js";
+import { INDEX_PAGE, LOGIN_PAGE } from "../../constants/pages.js";
+import UsersApi from "../../api/users.api.js";
+import { saveToken, saveUser } from "../../store/slices/user.slice.js";
+import { useState } from "react";
 
 export function RegistrationPage() {
   const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  const dispatch = useDispatch();
+
+  const onRegisterSubmit = async () => {
+    try {
+      const userToken = await UsersApi.register(
+        firstName,
+        lastName,
+        email,
+        password
+      );
+
+      dispatch(saveToken(userToken.token));
+
+      const userInfo = await UsersApi.getMeInfo();
+
+      dispatch(saveUser(userInfo));
+
+      navigate(INDEX_PAGE);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <div className="flex align-items-center justify-content-center h-screen">
@@ -36,6 +67,8 @@ export function RegistrationPage() {
         <InputText
           id="firstName"
           type="text"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
           placeholder="Ваше имя"
           className="w-full mb-3"
         />
@@ -47,6 +80,8 @@ export function RegistrationPage() {
         <InputText
           id="lastName"
           type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
           placeholder="Ваш фамилия"
           className="w-full mb-3"
         />
@@ -55,9 +90,12 @@ export function RegistrationPage() {
           <label htmlFor="email" className="block text-900 font-medium mb-2">
             Почта
           </label>
+
           <InputText
             id="email"
             type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Адресс почты"
             className="w-full mb-3"
           />
@@ -69,15 +107,17 @@ export function RegistrationPage() {
           <InputText
             id="password"
             type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Пароль, например: 123456"
             className="w-full mb-3"
           />
 
           <Button
-            label="Зайти"
+            label="Зарегистрироваться"
             icon="pi pi-user"
             className="w-full"
-            onClick={() => navigate(LANDING_PAGE)}
+            onClick={onRegisterSubmit}
           />
         </div>
       </div>

@@ -4,12 +4,8 @@ import { Toolbar } from "primereact/toolbar";
 import { Avatar } from "primereact/avatar";
 
 import { Header } from "../components/Header.jsx";
-import {
-  CREDIT_PAGE,
-  INDEX_PAGE,
-  LANDING_PAGE,
-  LEASING_PAGE,
-} from "../constants/pages.js";
+import { Footer } from "../components/Footer.jsx";
+import { CREDIT_PAGE, INDEX_PAGE, LANDING_PAGE } from "../constants/pages.js";
 
 export function DashboardLayout() {
   const navigate = useNavigate();
@@ -23,7 +19,6 @@ export function DashboardLayout() {
   const navigationItems = [
     { text: "Лендинг", url: LANDING_PAGE },
     { text: "Рынак", url: INDEX_PAGE },
-    { text: "Лизинг", url: LEASING_PAGE },
     { text: "Кредиты", url: CREDIT_PAGE },
   ];
 
@@ -75,6 +70,8 @@ export function DashboardLayout() {
           <Outlet />
         </main>
       </div>
+
+      <Footer />
     </div>
   );
 }

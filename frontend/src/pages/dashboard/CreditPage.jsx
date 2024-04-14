@@ -1,4 +1,19 @@
+import { useEffect, useState } from "react";
+import { Button } from "primereact/button";
+import CreditApi from "../../api/credit.api.js";
+import { FaMoneyBills } from "react-icons/fa6";
+
 export function CreditPage() {
+  const [credits, setCredits] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const allCredits = await CreditApi.getCreditSchemesByType(1);
+
+      setCredits(allCredits);
+    })();
+  }, []);
+
   return (
     <>
       <h2 className="text-center">Кредиты</h2>
@@ -10,6 +25,26 @@ export function CreditPage() {
         разнообразные виды кредитов с конкурентными ставками и условиями, чтобы
         помочь вам реализовать ваши планы.
       </p>
+
+      {credits.map((credit) => (
+        <div
+          key={credit.id}
+          className="flex justify-content-between align-items-center surface-card p-4 border-round border-solid border-1 border-200 cursor-pointer mb-3"
+        >
+          <div className="flex align-items-center">
+            <FaMoneyBills size={27} className="mr-4" color={"#10b981"} />
+            <span className="font-semibold">{credit.amount} тг.</span>
+          </div>
+
+          <div className="flex align-items-center">
+            <span className="mr-3 font-semibold">{credit.percent}%</span>
+
+            <span className="mr-3 font-semibold">{credit.mouths} месяцев</span>
+
+            <Button label="Запрос" />
+          </div>
+        </div>
+      ))}
     </>
   );
 }
